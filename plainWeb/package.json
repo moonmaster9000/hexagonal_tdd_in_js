@@ -1,0 +1,11 @@
+{
+  "name": "plainWeb",
+  "version": "0.0.1",
+  "dependencies": {
+    "hexComments": "file:../hexComments",
+    "handlebars": "latest"
+  },
+  "scripts": {
+    "bundle": "browserify main.js -o bundled/main.js"
+  }
+}

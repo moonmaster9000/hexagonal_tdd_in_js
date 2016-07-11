@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <script id="comment" type="text/x-handlebars-template">
+            <article>
+                <p>{{text}}</p>
+            </article>
+        </script>
+
+        <script id="validationError" type="text/x-handlebars-template">
+            <li>
+                <p>{{field}}: {{value}}</p>
+            </li>
+        </script>
+    </head>
+
+    <body>
+        <ul id="validationErrors"></ul>
+
+        <form id="createCommentForm">
+            <label for="commentText">Comment:</label>
+            <input id="commentText" type="text" name="text"/>
+            <button name="submit">Submit</button>
+        </form>
+
+        <section id="comments"></section>
+    </body>
+    <script type="text/javascript" src="bundled/main.js" ></script>
+</html>
