@@ -6,6 +6,7 @@ function createComment(attributes, collaborators) {
 
 function CreateCommentUseCase(attrs, {commentRepo, observer}) {
     var _comment = null
+    var _commentValidator = null
 
     this.execute = function () {
         if (commentInvalid()){
@@ -16,15 +17,16 @@ function CreateCommentUseCase(attrs, {commentRepo, observer}) {
     }
 
     function commentInvalid(){
-        return !commentValidations().isValid()
+        return !commentValidator().isValid()
     }
 
-    function commentValidations(){
-        return new CommentValidations(comment(), commentRepo)
+    function commentValidator(){
+        _commentValidator = _commentValidator || new CommentValidator(comment(), commentRepo)
+        return _commentValidator
     }
 
     function notifyValidationFailures(){
-        observer.validationFailed(commentValidations().errors())
+        observer.validationFailed(commentValidator().errors())
     }
 
     function comment(){
@@ -38,7 +40,7 @@ function CreateCommentUseCase(attrs, {commentRepo, observer}) {
     }
 }
 
-function CommentValidations(comment, repo){
+function CommentValidator(comment, repo){
     this.isValid = function () {
         return this.errors().length == 0
     }
@@ -64,10 +66,10 @@ function CommentValidations(comment, repo){
             errors.push(error("text", "unique"))
         }
     }
+
     function error(field, validation){
         return {field: field, value: validation}
     }
-
 }
 
 module.exports = createComment
