@@ -43,7 +43,10 @@ function submitCreateCommentForm(event){
     event.preventDefault()
 
     createComment(
-        {text: document.getElementById("commentText").value},
+        {
+            text: document.getElementById("commentText").value,
+            author: document.getElementById("commentAuthor").value,
+        },
         {commentRepo: commentRepo, observer: observer}
     )
 }

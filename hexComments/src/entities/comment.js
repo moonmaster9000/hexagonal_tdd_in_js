@@ -17,7 +17,8 @@ function Comment({text: _text, author: _author = null, id: _id = null}) {
 
     this.attributes = function () {
         return {
-            id: _id,
+            id: this.id(),
+            author: this.author(),
             text: this.text(),
         }
     }

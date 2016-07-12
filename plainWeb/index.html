@@ -2,6 +2,7 @@
     <head>
         <script id="comment" type="text/x-handlebars-template">
             <article>
+                <h2>{{author}}</h2>
                 <p>{{text}}</p>
             </article>
         </script>
@@ -17,8 +18,12 @@
         <ul id="validationErrors"></ul>
 
         <form id="createCommentForm">
+            <label for="commentAuthor">Author:</label>
+            <input id="commentAuthor" type="text" name="author"/>
+
             <label for="commentText">Comment:</label>
             <input id="commentText" type="text" name="text"/>
+
             <button name="submit">Submit</button>
         </form>
 
