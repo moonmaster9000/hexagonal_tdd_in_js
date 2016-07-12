@@ -48,30 +48,26 @@ function CommentValidations(comment, repo){
 
         required("text", errs);
         required("author", errs);
-        unique("text", errs);
+        validateTextUnique(errs)
 
         return errs
     }
 
+    function required(field, errors) {
+        if (comment[field]() == "" || comment[field]() == null) {
+            errors.push(error(field, "required"))
+        }
+    }
+
+    function validateTextUnique(errors){
+        if (!!repo.findByText(comment.text())) {
+            errors.push(error("text", "unique"))
+        }
+    }
     function error(field, validation){
         return {field: field, value: validation}
     }
 
-    function required(field, errs) {
-        if (comment[field]() == "" || comment[field]() == null) {
-            errs.push(error(field, "required"))
-        }
-    }
-
-    function unique(field, errs) {
-        let camelizedField = field.substr(0, 1).toUpperCase() + field.substr(1)
-
-        var finderMethod = "findBy" + camelizedField;
-
-        if (!!repo[finderMethod](comment[field]())) {
-            errs.push(error(field, "unique"))
-        }
-    }
 }
 
 module.exports = createComment
