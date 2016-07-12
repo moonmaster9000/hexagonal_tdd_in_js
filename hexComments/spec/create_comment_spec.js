@@ -13,7 +13,7 @@ describe("create comment", function () {
         observer = new ObserverSpy()
     })
 
-    context("when a text is not provided", function () {
+    context("when the text is empty", function () {
         specify("then the observer is notified", function () {
             createComment({text: ""}, {commentRepo: repo, observer: observer})
 
@@ -21,9 +21,33 @@ describe("create comment", function () {
         })
     })
 
+    context("when the text is not provided", function () {
+        specify("then the observer is notified", function () {
+            createComment({}, {commentRepo: repo, observer: observer})
+
+            expect(observer.spyValidationErrors()).toContain({field: "text", value: "required"})
+        })
+    })
+
+    context("when an author is not provided", function(){
+        specify("then the observer is notified", function(){
+            createComment({}, {commentRepo: repo, observer: observer})
+
+            expect(observer.spyValidationErrors()).toContain({field: "author", value: "required"})
+        })
+    })
+
+    context("when an author is empty", function(){
+        specify("then the observer is notified", function(){
+            createComment({author: ""}, {commentRepo: repo, observer: observer})
+
+            expect(observer.spyValidationErrors()).toContain({field: "author", value: "required"})
+        })
+    })
+
     context("when a text is not unique", function () {
         specify("then the observer is notified", function () {
-            var attrs = {text: "a valid text"};
+            var attrs = {text: "a valid text", author: "a valid author"}
 
             createComment(attrs, {commentRepo: repo, observer: observer})
             createComment(attrs, {commentRepo: repo, observer: observer})
@@ -34,7 +58,7 @@ describe("create comment", function () {
 
     context("when a text is provided and unique", function () {
         specify("then the observer is provided a unique identifier for the created comment", function () {
-            var attrs = {text: "a valid text"};
+            var attrs = {text: "a valid text", author: "a valid author"}
 
             createComment(attrs, {commentRepo: repo, observer: observer})
 
@@ -42,7 +66,7 @@ describe("create comment", function () {
         })
 
         specify("and the observer is given the created comment", function () {
-            var attrs = {text: "a valid text"};
+            var attrs = {text: "a valid text", author: "a valid author"}
 
             createComment(attrs, {commentRepo: repo, observer: observer})
 

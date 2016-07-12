@@ -4,33 +4,73 @@ function createComment(attributes, collaborators) {
     new CreateCommentUseCase(attributes, collaborators).execute()
 }
 
-function CreateCommentUseCase({text}, {commentRepo, observer}) {
+function CreateCommentUseCase(attrs, {commentRepo, observer}) {
+    var _comment = null
+
     this.execute = function () {
-        if (commentAlreadyExists()) {
-            notifyValidationFailure("text", "unique")
-        } else if (noText()) {
-            notifyValidationFailure("text", "required")
+        if (commentInvalid()){
+            notifyValidationFailures()
         } else {
             saveComment()
         }
     }
 
-    function commentAlreadyExists() {
-        return commentRepo.findByText(text) != null
+    function commentInvalid(){
+        return !commentValidations().isValid()
     }
 
-    function notifyValidationFailure(field, validation) {
-        observer.validationFailed([{field: field, value: validation}])
+    function commentValidations(){
+        return new CommentValidations(comment(), commentRepo)
     }
 
-    function noText() {
-        return text == "";
+    function notifyValidationFailures(){
+        observer.validationFailed(commentValidations().errors())
+    }
+
+    function comment(){
+        _comment = _comment || new Comment(attrs)
+        return _comment
     }
 
     function saveComment() {
-        var c = new Comment({text: text});
-        commentRepo.save(c)
-        observer.commentCreated(c.id(), c.attributes())
+        commentRepo.save(comment())
+        observer.commentCreated(comment().id(), comment().attributes())
+    }
+}
+
+function CommentValidations(comment, repo){
+    this.isValid = function () {
+        return this.errors().length == 0
+    }
+
+    this.errors = function () {
+        let errs = []
+
+        required("text", errs);
+        required("author", errs);
+        unique("text", errs);
+
+        return errs
+    }
+
+    function error(field, validation){
+        return {field: field, value: validation}
+    }
+
+    function required(field, errs) {
+        if (comment[field]() == "" || comment[field]() == null) {
+            errs.push(error(field, "required"))
+        }
+    }
+
+    function unique(field, errs) {
+        let camelizedField = field.substr(0, 1).toUpperCase() + field.substr(1)
+
+        var finderMethod = "findBy" + camelizedField;
+
+        if (!!repo[finderMethod](comment[field]())) {
+            errs.push(error(field, "unique"))
+        }
     }
 }
 
