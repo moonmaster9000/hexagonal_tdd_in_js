@@ -2,8 +2,7 @@
   "name": "plainWeb",
   "version": "0.0.1",
   "dependencies": {
-    "hexComments": "file:../hexComments",
-    "handlebars": "latest"
+    "hexComments": "file:../hexComments"
   },
   "scripts": {
     "bundle": "browserify main.js -o bundled/main.js"

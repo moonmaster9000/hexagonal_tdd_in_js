@@ -1,11 +1,7 @@
-const Handlebars = require("handlebars")
 const {createComment, FakeCommentRepo} = require("hexComments")
 const commentRepo = new FakeCommentRepo();
 
 function Observer() {
-    const commentTemplate = Handlebars.compile(document.getElementById("comment").innerHTML)
-    const validationErrorTemplate = Handlebars.compile(document.getElementById("validationError").innerHTML)
-
     this.validationFailed = function (errors) {
         clearErrors()
         presentErrors(errors)
@@ -34,6 +30,23 @@ function Observer() {
         document
             .getElementById(elementId)
             .insertAdjacentHTML("beforeend", html)
+    }
+
+    function commentTemplate({author, text}){
+        return `
+            <article>
+                <h2> ${author} </h2>
+                <p>${text}</p>
+            </article>
+            `
+    }
+
+    function validationErrorTemplate({field, value}) {
+        return `
+            <li>
+                <p>${field}: ${value}</p>
+            </li>
+            `
     }
 }
 
