@@ -41,10 +41,10 @@ function Observer() {
             `
     }
 
-    function validationErrorTemplate({field, value}) {
+    function validationErrorTemplate({field, validation}) {
         return `
             <li>
-                <p>${field}: ${value}</p>
+                <p>${field}: ${validation}</p>
             </li>
             `
     }

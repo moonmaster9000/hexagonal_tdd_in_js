@@ -17,7 +17,7 @@ describe("create comment", function () {
         specify("then the observer is notified", function () {
             createComment({text: ""}, {commentRepo: repo, observer: observer})
 
-            expect(observer.spyValidationErrors()).toContain({field: "text", value: "required"})
+            expect(observer.spyValidationErrors()).toContain({field: "text", validation: "required"})
         })
     })
 
@@ -25,7 +25,7 @@ describe("create comment", function () {
         specify("then the observer is notified", function () {
             createComment({}, {commentRepo: repo, observer: observer})
 
-            expect(observer.spyValidationErrors()).toContain({field: "text", value: "required"})
+            expect(observer.spyValidationErrors()).toContain({field: "text", validation: "required"})
         })
     })
 
@@ -33,7 +33,7 @@ describe("create comment", function () {
         specify("then the observer is notified", function(){
             createComment({}, {commentRepo: repo, observer: observer})
 
-            expect(observer.spyValidationErrors()).toContain({field: "author", value: "required"})
+            expect(observer.spyValidationErrors()).toContain({field: "author", validation: "required"})
         })
     })
 
@@ -41,7 +41,7 @@ describe("create comment", function () {
         specify("then the observer is notified", function(){
             createComment({author: ""}, {commentRepo: repo, observer: observer})
 
-            expect(observer.spyValidationErrors()).toContain({field: "author", value: "required"})
+            expect(observer.spyValidationErrors()).toContain({field: "author", validation: "required"})
         })
     })
 
@@ -52,7 +52,7 @@ describe("create comment", function () {
             createComment(attrs, {commentRepo: repo, observer: observer})
             createComment(attrs, {commentRepo: repo, observer: observer})
 
-            expect(observer.spyValidationErrors()).toContain({field: "text", value: "unique"})
+            expect(observer.spyValidationErrors()).toContain({field: "text", validation: "unique"})
         })
     })
 

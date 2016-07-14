@@ -56,7 +56,7 @@ var CommentForm = React.createClass({
     render: function () {
         const errors = this.props.errors.map(
             (error) =>
-                <li key={error.field + error.value}>{error.field}: {error.value}</li>
+                <li key={error.field + error.validation}>{error.field}: {error.validation}</li>
         )
 
         return (

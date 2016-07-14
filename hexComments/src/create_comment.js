@@ -68,7 +68,7 @@ function CommentValidator(comment, repo){
     }
 
     function error(field, validation){
-        return {field: field, value: validation}
+        return {field: field, validation: validation}
     }
 }
 
