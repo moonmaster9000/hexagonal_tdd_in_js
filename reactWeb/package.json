@@ -1,0 +1,17 @@
+{
+  "name": "reactWeb",
+  "version": "0.0.1",
+  "dependencies": {
+    "hexComments": "file:../hexComments",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "babelify": "latest",
+    "babel-preset-es2015": "latest",
+    "babel-preset-react": "latest"
+  },
+  "scripts": {
+    "bundle": "browserify main.js -o bundled/main.js -t [ babelify --presets [ es2015 react ] ]"
+  }
+}
