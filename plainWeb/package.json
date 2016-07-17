@@ -5,6 +5,6 @@
     "hexComments": "file:../hexComments"
   },
   "scripts": {
-    "bundle": "browserify main.js -o bundled/main.js"
+    "compile": "browserify main.js -o bundled/main.js"
   }
 }
