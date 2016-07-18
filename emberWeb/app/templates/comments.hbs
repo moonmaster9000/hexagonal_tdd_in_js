@@ -1,0 +1,15 @@
+<ul>
+    {{#each errors as |e|}}
+        <li>{{e.field}}: {{e.validation}}</li>
+    {{/each}}
+</ul>
+
+
+{{input type="text" value=author }}
+{{input type="text" value=text }}
+<button {{action 'submitForm'}}>Submit</button>
+
+{{#each comments as |c|}}
+    <h2>{{c.author}}</h2>
+    <p>{{c.text}}</p>
+{{/each}}
