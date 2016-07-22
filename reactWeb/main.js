@@ -47,8 +47,8 @@ var CommentForm = React.createClass({
     handleSubmit: function (e) {
         e.preventDefault()
 
-        var author = this.state.author.trim()
-        var text = this.state.text.trim()
+        var author = this.state.author
+        var text = this.state.text
 
         this.props.handleSubmit({author, text})
     },
