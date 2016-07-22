@@ -1,25 +1,25 @@
-function Comment({text: _text, author: _author = null, id: _id = null}) {
+function Comment({text, author = null, id = null}) {
     this.setId = function (value) {
-        _id = value
+        id = value
     }
 
-    this.id = function () {
-        return _id
+    this.getId = function () {
+        return id
     }
 
-    this.author = function () {
-        return _author
+    this.getAuthor = function () {
+        return author
     }
 
-    this.text = function () {
-        return _text
+    this.getText = function () {
+        return text
     }
 
     this.attributes = function () {
         return {
-            id: this.id(),
-            author: this.author(),
-            text: this.text(),
+            id: this.getId(),
+            author: this.getAuthor(),
+            text: this.getText(),
         }
     }
 }

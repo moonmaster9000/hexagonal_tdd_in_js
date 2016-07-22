@@ -36,7 +36,7 @@ function CreateCommentUseCase(attrs, {commentRepo, observer}) {
 
     function saveComment() {
         commentRepo.save(comment())
-        observer.commentCreated(comment().id(), comment().attributes())
+        observer.commentCreated(comment().getId(), comment().attributes())
     }
 }
 
@@ -48,21 +48,21 @@ function CommentValidator(comment, repo){
     this.errors = function () {
         let errs = []
 
-        required("text", errs);
-        required("author", errs);
+        required("text", comment.getText(), errs);
+        required("author", comment.getAuthor(), errs);
         validateTextUnique(errs)
 
         return errs
     }
 
-    function required(field, errors) {
-        if (comment[field]() == "" || comment[field]() == null) {
+    function required(field, value, errors) {
+        if (value == "" || value == null) {
             errors.push(error(field, "required"))
         }
     }
 
     function validateTextUnique(errors){
-        if (!!repo.findByText(comment.text())) {
+        if (!!repo.findByText(comment.getText())) {
             errors.push(error("text", "unique"))
         }
     }

@@ -15,15 +15,14 @@ function commentRepoContract(CommentRepoClass){
         })
 
         it("generates unique ids for comments", function () {
-            expect(sf.id()).toBeDefined()
-            expect(ny.id()).toBeDefined()
-            expect(sf.id()).not.toEqual(ny.id())
-
+            expect(sf.getId()).toBeDefined()
+            expect(ny.getId()).toBeDefined()
+            expect(sf.getId()).not.toEqual(ny.getId())
         })
 
         it("finds by text", function () {
-            expect(repo.findByText(sf.text())).toEqual(sf)
-            expect(repo.findByText(ny.text())).toEqual(ny)
+            expect(repo.findByText(sf.getText())).toEqual(sf)
+            expect(repo.findByText(ny.getText())).toEqual(ny)
         })
     })
 }
